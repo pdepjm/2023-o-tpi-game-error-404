@@ -1,8 +1,15 @@
 import wollok.game.*
 import pepita.*
+import titulo.*
 
 program juego {
-	game.title("Juego Base")
-	game.addVisual(pepita)
+	game.title("TETRIS")
+	game.width(12)
+  	game.height(22)
+  	game.cellSize(40)
+  	game.boardGround("board.png") 
+  	game.addVisual(titulo)
+  	game.addVisual(texto)
 	game.start()
+	
 }
