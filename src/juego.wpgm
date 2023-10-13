@@ -7,9 +7,9 @@ program juego {
 	
 	
 	game.title("TETRIS")
-	game.width(15)
-  	game.height(20)
-  	game.cellSize(50)
+	game.width(12)
+  	game.height(22)
+  	game.cellSize(40)
   	game.boardGround("board.png") 
   	game.addVisual(titulo)
   	game.addVisual(texto)
@@ -28,12 +28,14 @@ program juego {
   	keyboard.left().onPressDo({pieza.moverIzquierda()})
 	keyboard.right().onPressDo({pieza.moverDerecha()})
 	keyboard.up().onPressDo({pieza.moverArriba()})
+	
+	keyboard.q().onPressDo({pieza.rotarIzquierda()})
+	keyboard.e().onPressDo({pieza.rotarDerecha()})
 
   	
   	keyboard.enter().onPressDo({pieza=new Pieza(letra=letras.anyOne())})
   	keyboard.enter().onPressDo({game.addVisual(pieza)})
   	
-  	game.onCollideDo(pieza,{otraPieza => game.say(pieza,"Choque con "+otraPieza.letra())})
   	
 	game.start()
 	
