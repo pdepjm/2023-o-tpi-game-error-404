@@ -1,15 +1,39 @@
 import wollok.game.*
-import pepita.*
+import Piezas.*
 import titulo.*
+import Piezas.*
 
 program juego {
+	
+	
 	game.title("TETRIS")
-	game.width(12)
-  	game.height(22)
-  	game.cellSize(40)
+	game.width(15)
+  	game.height(20)
+  	game.cellSize(50)
   	game.boardGround("board.png") 
   	game.addVisual(titulo)
   	game.addVisual(texto)
+  	
+  	
+  	/* Presionamos espacio y desaparece el titulo y la leyenda de debajo */
+  	keyboard.space().onPressDo({game.removeVisual(texto)})
+  	keyboard.space().onPressDo({game.removeVisual(titulo)})
+	
+	var pieza=new Pieza(letra=letras.anyOne())
+	
+  	game.addVisual(pieza)
+  	
+  	
+  	keyboard.s().onPressDo({pieza.moverAbajo()})
+  	keyboard.a().onPressDo({pieza.moverIzquierda()})
+	keyboard.d().onPressDo({pieza.moverDerecha()})
+	keyboard.w().onPressDo({pieza.moverArriba()})
+
+  	
+  	keyboard.enter().onPressDo({pieza=new Pieza(letra=letras.anyOne())})
+  	keyboard.enter().onPressDo({game.addVisual(pieza)})
+  	
 	game.start()
 	
 }
+
