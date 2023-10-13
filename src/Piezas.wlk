@@ -2,11 +2,12 @@ import wollok.game.*
 
 class Pieza{
 	
-	var property position=game.at(3.8,10)
+	var property position=game.origin()
 	var letra
 	
 	method image() =letra+".png"
 	
+	method letra()=letra
 	
 	method moverIzquierda(){
 		self.position(position.left(1))

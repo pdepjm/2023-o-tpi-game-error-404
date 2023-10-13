@@ -24,14 +24,16 @@ program juego {
   	game.addVisual(pieza)
   	
   	
-  	keyboard.s().onPressDo({pieza.moverAbajo()})
-  	keyboard.a().onPressDo({pieza.moverIzquierda()})
-	keyboard.d().onPressDo({pieza.moverDerecha()})
-	keyboard.w().onPressDo({pieza.moverArriba()})
+  	keyboard.down().onPressDo({pieza.moverAbajo()})
+  	keyboard.left().onPressDo({pieza.moverIzquierda()})
+	keyboard.right().onPressDo({pieza.moverDerecha()})
+	keyboard.up().onPressDo({pieza.moverArriba()})
 
   	
   	keyboard.enter().onPressDo({pieza=new Pieza(letra=letras.anyOne())})
   	keyboard.enter().onPressDo({game.addVisual(pieza)})
+  	
+  	game.onCollideDo(pieza,{otraPieza => game.say(pieza,"Choque con "+otraPieza.letra())})
   	
 	game.start()
 	
