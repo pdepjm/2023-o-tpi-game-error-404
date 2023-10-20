@@ -19,23 +19,24 @@ program juego {
   	keyboard.space().onPressDo({game.removeVisual(texto)})
   	keyboard.space().onPressDo({game.removeVisual(titulo)})
 	
-	var pieza=new Pieza(letra=letras.anyOne())
+	var l=new L(position=game.origin())
 	
-  	game.addVisual(pieza)
+  	game.addVisual(l)
   	
+  	l.agregarVisuales()
   	
-  	keyboard.down().onPressDo({pieza.moverAbajo()})
-  	keyboard.left().onPressDo({pieza.moverIzquierda()})
-	keyboard.right().onPressDo({pieza.moverDerecha()})
-	keyboard.up().onPressDo({pieza.moverArriba()})
+  	keyboard.down().onPressDo({l.moverAbajo()})
+  	keyboard.left().onPressDo({l.moverIzquierda()})
+	keyboard.right().onPressDo({l.moverDerecha()})
+	keyboard.up().onPressDo({l.moverArriba()})
 	
-	keyboard.q().onPressDo({pieza.rotarIzquierda()})
-	keyboard.e().onPressDo({pieza.rotarDerecha()})
+	//keyboard.q().onPressDo({l.rotarIzquierda()})
+	keyboard.e().onPressDo({l.rotarDerecha()})
 
   	
-  	keyboard.enter().onPressDo({pieza=new Pieza(letra=letras.anyOne())})
-  	keyboard.enter().onPressDo({game.addVisual(pieza)})
-  	
+  	keyboard.enter().onPressDo({l=new L(position=game.origin())})
+  	keyboard.enter().onPressDo({game.addVisual(l)})
+  	keyboard.enter().onPressDo({l.agregarVisuales()})
   	
 	game.start()
 	
