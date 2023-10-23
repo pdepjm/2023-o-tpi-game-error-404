@@ -1,10 +1,12 @@
-# Nombre del juego (<- borrar y completar)
+# TETRIS
 
 ## Equipo de desarrollo
 
-- Alguien
-- Persona
-- etc.
+- Jonatan Raijman
+- Ignagio Knobel
+- Tomas Zignego
+- Nahuel Garcia
+- Tomas Garbossa
 
 ## Capturas
 
@@ -19,4 +21,4 @@
 
 - Curso/Facultad
 - Versión de wollok
-- Una vez terminado, no tenemos problemas en que el repositorio sea público / queremos manternerlo privado
+- Una vez terminado, no tenemos problemas en que el repositorio sea público
