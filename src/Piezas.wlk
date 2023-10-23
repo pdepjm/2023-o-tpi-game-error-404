@@ -1,10 +1,12 @@
 import wollok.game.*
 
+const colores = ["Amarillo","Azul","Rojo","Verde","Violeta","Celeste","Naranja"]
+
+
 class Bloque{
 	
 	var property position
-	method image()="BloqueCeleste.png"
-	
+	var property image
 	
 	method moverIzquierda(){
 		self.position(position.left(1))
@@ -23,141 +25,324 @@ class Bloque{
 	}
 }
 
-class L{
+class L{	
+	var x
+	var y
+	const imagen= "Bloque"+colores.anyOne()+".png"
 	
-	var property position
+	const ubicaciones = []
+	const bloques = [new Bloque(position=game.at(x,y+2), image= imagen),
+		new Bloque(position=game.at(x,y+1), image= imagen),
+		new Bloque(position=game.at(x,y), image= imagen), 
+		new Bloque(position=game.at(x+1,y), image= imagen)
+	]
 	
-	const bloque1=new Bloque(position=game.at(0,0))
-	const bloque2=new Bloque(position=game.at(0,1))
-	const bloque3=new Bloque(position=game.at(0,2))
-	const bloque4=new Bloque(position=game.at(1,0))
+	//0 es q no roto, a la derecha suma 1, a la izquierda resta
+	var rotacion = 0 
 	
 	method agregarVisuales(){
-		game.addVisual(bloque1)
-		game.addVisual(bloque2)
-		game.addVisual(bloque3)
-		game.addVisual(bloque4)
+		bloques.forEach({bloque => game.addVisual(bloque)})
+		ubicaciones.clear()
+		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
 	
 	
 	method moverDerecha(){
-		bloque1.moverDerecha()
-		bloque2.moverDerecha()
-		bloque3.moverDerecha()
-		bloque4.moverDerecha()
+		bloques.forEach({bloque => bloque.moverDerecha()})
+		ubicaciones.clear()
+		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
 	
 	method moverIzquierda(){
-		bloque1.moverIzquierda()
-		bloque2.moverIzquierda()
-		bloque3.moverIzquierda()
-		bloque4.moverIzquierda()
+		bloques.forEach({bloque => bloque.moverIzquierda()})
+		ubicaciones.clear()
+		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
 	
 	method moverAbajo(){
-		bloque1.moverAbajo()
-		bloque2.moverAbajo()
-		bloque3.moverAbajo()
-		bloque4.moverAbajo()
+		if(!ubicaciones.any({ubi => ubi.y() == 1})){
+		bloques.forEach({bloque => bloque.moverAbajo()})
+		ubicaciones.clear()
+		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
+		}
 	}
 	
 	method moverArriba(){
-		bloque1.moverArriba()
-		bloque2.moverArriba()
-		bloque3.moverArriba()
-		bloque4.moverArriba()
+		bloques.forEach({bloque => bloque.moverArriba()})
+		ubicaciones.clear()
+		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
 	
 	method rotarDerecha(){
-		bloque1.moverArriba()
-		bloque2.moverDerecha()
-		bloque3.moverAbajo()
-		bloque3.moverDerecha()
-		bloque3.moverDerecha()
-		bloque4.moverIzquierda()
+		if(rotacion == 0){
+			bloques.get(2).moverArriba()
+			bloques.get(1).moverDerecha()
+			bloques.get(0).moverAbajo()
+			bloques.get(0).moverDerecha()
+			bloques.get(0).moverDerecha()
+			bloques.get(3).moverIzquierda()
+			rotacion = 1
+		}
+		else if(rotacion == 1){
+			bloques.get(3).moverArriba()
+			bloques.get(2).moverDerecha()
+			bloques.get(1).moverAbajo()
+			bloques.get(0).moverIzquierda()
+			bloques.get(0).moverAbajo()
+			bloques.get(0).moverAbajo()
+			rotacion = 2
+		}
+		else if(rotacion == 2){
+			bloques.get(3).moverDerecha()
+			bloques.get(2).moverAbajo()
+			bloques.get(1).moverIzquierda()
+			bloques.get(0).moverIzquierda()
+			bloques.get(0).moverIzquierda()
+			bloques.get(0).moverArriba()
+			rotacion = 3
+		}
+		else if(rotacion == 3){
+			bloques.get(3).moverAbajo()
+			bloques.get(2).moverIzquierda()
+			bloques.get(1).moverArriba()
+			bloques.get(0).moverArriba()
+			bloques.get(0).moverDerecha()
+			bloques.get(0).moverArriba()
+			rotacion = 0
+		}
+		ubicaciones.clear()
+		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
 	
 	method rotarIzquierda(){
-		/*agregar movimientos */
+		if(rotacion == 1){
+			bloques.get(2).moverAbajo()
+			bloques.get(1).moverIzquierda()
+			bloques.get(0).moverArriba()
+			bloques.get(0).moverIzquierda()
+			bloques.get(0).moverIzquierda()
+			bloques.get(3).moverDerecha()
+			rotacion = 0
+		}
+		else if(rotacion == 2){
+			bloques.get(3).moverAbajo()
+			bloques.get(2).moverIzquierda()
+			bloques.get(1).moverArriba()
+			bloques.get(0).moverDerecha()
+			bloques.get(0).moverArriba()
+			bloques.get(0).moverArriba()
+			rotacion = 1
+		}
+		else if(rotacion == 3){
+			bloques.get(3).moverIzquierda()
+			bloques.get(2).moverArriba()
+			bloques.get(1).moverDerecha()
+			bloques.get(0).moverDerecha()
+			bloques.get(0).moverDerecha()
+			bloques.get(0).moverAbajo()
+			rotacion = 2
+		}
+		else if(rotacion == 0){
+			bloques.get(3).moverArriba()
+			bloques.get(2).moverDerecha()
+			bloques.get(1).moverAbajo()
+			bloques.get(0).moverAbajo()
+			bloques.get(0).moverIzquierda()
+			bloques.get(0).moverAbajo()
+			rotacion = 3
+		}
+		ubicaciones.clear()
+		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
-	
+	method ubicaciones() = ubicaciones
+	method noSaleDeTablero(){
+		//ver si cuando realizo el movimiento pedido excedo 21 en y o 11 en x
+		return true
+		
+	}
 }
 
 
-class Pieza{
+class I{	
 	
-	var property position=game.center()
-	var letra
-	var cont=0
-
-	method image() ="Piezas/"+letra+cont+".png"
-
+	var x
+	var y
+	const imagen= "Bloque"+colores.anyOne()+".png"
+	
+	const ubicaciones = []
+	
+	const bloques = [new Bloque(position=game.at(x,y+3), image= imagen),
+		new Bloque(position=game.at(x,y+2), image= imagen),
+		new Bloque(position=game.at(x,y+1), image= imagen), 
+		new Bloque(position=game.at(x,y), image= imagen)
+	]
+	
+	//0 es q no roto, a la derecha suma 1, a la izquierda resta
+	var rotacion = 0 
+	
+	method agregarVisuales(){
+		bloques.forEach({bloque => game.addVisual(bloque)})
+		ubicaciones.clear()
+		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
+	}
+	
+	
+	method moverDerecha(){
+		bloques.forEach({bloque => bloque.moverDerecha()})
+		ubicaciones.clear()
+		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
+	}
 	
 	method moverIzquierda(){
-		if(self.position().x() != 0 ){
-			self.position(position.left(1))
-		}else{
-			self.position(position.left(0))
+		bloques.forEach({bloque => bloque.moverIzquierda()})
+		ubicaciones.clear()
+		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
+	}
+	
+	method moverAbajo(){
+		if(!ubicaciones.any({ubi => ubi.y() == 1})){
+		bloques.forEach({bloque => bloque.moverAbajo()})
+		ubicaciones.clear()
+		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 		}
-		
+	}
+	
+	method moverArriba(){
+		bloques.forEach({bloque => bloque.moverArriba()})
+		ubicaciones.clear()
+		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
+	}
+	
+	method rotarDerecha(){
+		if(rotacion == 0){
+			bloques.get(1).moverDerecha()
+			bloques.get(1).moverArriba()
+			bloques.get(2).moverDerecha()
+			bloques.get(2).moverDerecha()
+			bloques.get(2).moverArriba()
+			bloques.get(2).moverArriba()
+			bloques.get(3).moverDerecha()
+			bloques.get(3).moverDerecha()
+			bloques.get(3).moverDerecha()
+			bloques.get(3).moverArriba()
+			bloques.get(3).moverArriba()
+			bloques.get(3).moverArriba()
+			rotacion = 1
+		}
+		else if(rotacion == 1){
+			bloques.get(1).moverIzquierda()
+			bloques.get(1).moverAbajo()
+			bloques.get(2).moverIzquierda()
+			bloques.get(2).moverIzquierda()
+			bloques.get(2).moverAbajo()
+			bloques.get(2).moverAbajo()
+			bloques.get(3).moverIzquierda()
+			bloques.get(3).moverIzquierda()
+			bloques.get(3).moverIzquierda()
+			bloques.get(3).moverAbajo()
+			bloques.get(3).moverAbajo()
+			bloques.get(3).moverAbajo()
+			rotacion = 0
+		}
+		ubicaciones.clear()
+		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
+	}
+	
+	method rotarIzquierda(){
+		if(rotacion == 1){
+			bloques.get(1).moverIzquierda()
+			bloques.get(1).moverAbajo()
+			bloques.get(2).moverIzquierda()
+			bloques.get(2).moverIzquierda()
+			bloques.get(2).moverAbajo()
+			bloques.get(2).moverAbajo()
+			bloques.get(3).moverIzquierda()
+			bloques.get(3).moverIzquierda()
+			bloques.get(3).moverIzquierda()
+			bloques.get(3).moverAbajo()
+			bloques.get(3).moverAbajo()
+			bloques.get(3).moverAbajo()
+			rotacion = 0
+		}
+		else if(rotacion == 0){
+			bloques.get(1).moverDerecha()
+			bloques.get(1).moverArriba()
+			bloques.get(2).moverDerecha()
+			bloques.get(2).moverDerecha()
+			bloques.get(2).moverArriba()
+			bloques.get(2).moverArriba()
+			bloques.get(3).moverDerecha()
+			bloques.get(3).moverDerecha()
+			bloques.get(3).moverDerecha()
+			bloques.get(3).moverArriba()
+			bloques.get(3).moverArriba()
+			bloques.get(3).moverArriba()
+			rotacion = 1
+		}
+		ubicaciones.clear()
+		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
+	}
+	method ubicaciones() = ubicaciones
+	method noSaleDeTablero(){
+		//ver si cuando realizo el movimiento pedido excedo 21 en y o 11 en x
+		return true
+	}
+}
+
+class O{	
+	
+	var x
+	var y
+	const imagen= "Bloque"+colores.anyOne()+".png"
+	
+	const ubicaciones = []
+	
+	const bloques = [new Bloque(position=game.at(x+1,y+1), image= imagen),
+		new Bloque(position=game.at(x+1,y), image= imagen),
+		new Bloque(position=game.at(x,y+1), image= imagen), 
+		new Bloque(position=game.at(x,y), image= imagen)
+	]
+	
+	method agregarVisuales(){
+		bloques.forEach({bloque => game.addVisual(bloque)})
+		ubicaciones.clear()
+		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
 	
 	method moverDerecha(){
-		if(self.position().x() != game.width()){
-			self.position(position.right(1))
-		}else{
-			self.position(position.right(0))
-		}
-		
+		bloques.forEach({bloque => bloque.moverDerecha()})
+		ubicaciones.clear()
+		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
+	}
+	
+	method moverIzquierda(){
+		bloques.forEach({bloque => bloque.moverIzquierda()})
+		ubicaciones.clear()
+		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
 	
 	method moverAbajo(){
-		if(self.position().y() != 0){
-			self.position(position.down(1))
-		}else{
-			self.position(position.down(0))
+		if(!ubicaciones.any({ubi => ubi.y() == 1})){
+		bloques.forEach({bloque => bloque.moverAbajo()})
+		ubicaciones.clear()
+		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 		}
 	}
 	
 	method moverArriba(){
-		if(self.position().y() != game.height()){
-			self.position(position.up(1))
-		}else{
-			self.position(position.up(0))
-		}
-		
+		bloques.forEach({bloque => bloque.moverArriba()})
+		ubicaciones.clear()
+		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
 	
-	method rotarDerecha(){
-		if(cont>3){
-			cont=0
-		}else if(cont<0){
-			cont=3
-		}else{
-			if(cont==3){
-				cont=0
-			}else{
-			cont+=1
-			}	
-		}
-	}
+	method rotarDerecha(){}
 	
-	method rotarIzquierda(){
-		if(cont>3){
-			cont=0
-		}else if(cont<0){
-			cont=3
-		}else{
-			if(cont==0){
-				cont=3
-			}
-			else{
-				cont-=1
-			}
-			
-		}
+	method rotarIzquierda(){}
+	
+	method ubicaciones() = ubicaciones
+	
+	method noSaleDeTablero(){
+		//ver si cuando realizo el movimiento pedido excedo 21 en y o 11 en x
+		return true
 	}
-		
 }
-
-const letras=["Lgirar","Igirar","Jgirar","Ogirar","Sgirar","Tgirar","Zgirar"]

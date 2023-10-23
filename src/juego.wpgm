@@ -1,7 +1,8 @@
 import wollok.game.*
 import Piezas.*
 import titulo.*
-import Piezas.*
+import tablero.*
+
 
 program juego {
 	
@@ -18,25 +19,17 @@ program juego {
   	/* Presionamos espacio y desaparece el titulo y la leyenda de debajo */
   	keyboard.space().onPressDo({game.removeVisual(texto)})
   	keyboard.space().onPressDo({game.removeVisual(titulo)})
-	
-	var l=new L(position=game.origin())
-	
-  	game.addVisual(l)
+  	keyboard.space().onPressDo({tablero.iniciar()})
   	
-  	l.agregarVisuales()
-  	
-  	keyboard.down().onPressDo({l.moverAbajo()})
-  	keyboard.left().onPressDo({l.moverIzquierda()})
-	keyboard.right().onPressDo({l.moverDerecha()})
-	keyboard.up().onPressDo({l.moverArriba()})
+  	keyboard.down().onPressDo({tablero.moverAbajo()})
+  	keyboard.left().onPressDo({tablero.moverIzquierda()})
+	keyboard.right().onPressDo({tablero.moverDerecha()})
+	keyboard.up().onPressDo({tablero.moverArriba()})
 	
-	//keyboard.q().onPressDo({l.rotarIzquierda()})
-	keyboard.e().onPressDo({l.rotarDerecha()})
+	keyboard.q().onPressDo({tablero.rotarIzquierda()})
+	keyboard.e().onPressDo({tablero.rotarDerecha()})
 
-  	
-  	keyboard.enter().onPressDo({l=new L(position=game.origin())})
-  	keyboard.enter().onPressDo({game.addVisual(l)})
-  	keyboard.enter().onPressDo({l.agregarVisuales()})
+  	keyboard.enter().onPressDo({tablero.colocarPieza()})
   	
 	game.start()
 	
