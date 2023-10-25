@@ -31,7 +31,10 @@ program juego {
 
   	keyboard.enter().onPressDo({tablero.colocarPieza()})
   	
+  	
 	game.start()
+	//game.whenCollideDo(anytablero.pieza.bloques,{pieza=>game.say(bloque,"choque")})
+	
 	
 }
 

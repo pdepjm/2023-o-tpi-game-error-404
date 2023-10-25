@@ -1,9 +1,10 @@
 import wollok.game.*
+import tablero.*
 
 const colores = ["Amarillo","Azul","Rojo","Verde","Violeta","Celeste","Naranja"]
 
 
-class Bloque{
+class Bloque{ //cada cuadradito
 	
 	var property position
 	var property image
@@ -17,6 +18,7 @@ class Bloque{
 	}
 	
 	method moverAbajo(){
+		game.whenCollideDo(self,{x=>tablero.moverArriba() tablero.colocarPieza()})
 		self.position(position.down(1))
 	}
 	
@@ -60,11 +62,11 @@ class L{
 	}
 	
 	method moverAbajo(){
-		if(!ubicaciones.any({ubi => ubi.y() == 1})){
+		
 		bloques.forEach({bloque => bloque.moverAbajo()})
 		ubicaciones.clear()
 		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
-		}
+		
 	}
 	
 	method moverArriba(){
@@ -200,11 +202,11 @@ class I{
 	}
 	
 	method moverAbajo(){
-		if(!ubicaciones.any({ubi => ubi.y() == 1})){
+
 		bloques.forEach({bloque => bloque.moverAbajo()})
 		ubicaciones.clear()
 		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
-		}
+		
 	}
 	
 	method moverArriba(){
@@ -322,11 +324,11 @@ class O{
 	}
 	
 	method moverAbajo(){
-		if(!ubicaciones.any({ubi => ubi.y() == 1})){
+		
 		bloques.forEach({bloque => bloque.moverAbajo()})
 		ubicaciones.clear()
 		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
-		}
+		
 	}
 	
 	method moverArriba(){
