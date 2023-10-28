@@ -29,11 +29,11 @@ program juego {
 	keyboard.q().onPressDo({tablero.rotarIzquierda()})
 	keyboard.e().onPressDo({tablero.rotarDerecha()})
 
-  	keyboard.enter().onPressDo({tablero.colocarPieza()})
+  	keyboard.enter().onPressDo({tablero.colocarPieza()}) //no deberia existir
   	
   	
 	game.start()
-	//game.whenCollideDo(anytablero.pieza.bloques,{pieza=>game.say(bloque,"choque")})
+	
 	
 	
 }
