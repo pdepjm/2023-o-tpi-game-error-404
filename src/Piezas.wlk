@@ -19,8 +19,8 @@ class Bloque{ //cada cuadradito
 	}
 	
 	method moverAbajo(){
-		game.whenCollideDo(self,{x=>tablero.moverArriba() tablero.colocarPieza() choco = true})
 		self.position(position.down(1))
+		self.comprobarColision()
 	}
 	
 	method moverArriba(){
@@ -32,7 +32,11 @@ class Bloque{ //cada cuadradito
 	method bajarHastaChocar(){
 		if(!choco){
 			self.moverAbajo()
+			choco = false
 		}
+	}
+	method comprobarColision(){
+		game.whenCollideDo(self,{x=>tablero.moverArriba() tablero.colocarPieza() choco = true})
 	}
 }
 
@@ -42,7 +46,6 @@ class L{
 	var x
 	var y
 	const imagen= "Bloque"+colores.anyOne()+".png"
-	const ubicaciones = []
 	
 	 const bloques = [new Bloque(position=game.at(x,y+2), image= imagen),
 		new Bloque(position=game.at(x,y+1), image= imagen),
@@ -55,34 +58,23 @@ class L{
 	
 	method agregarVisuales(){
 		bloques.forEach({bloque => game.addVisual(bloque)})
-		ubicaciones.clear()
-		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
 	
 	method moverDerecha(){
 		bloques.forEach({bloque => bloque.moverDerecha()})
-		ubicaciones.clear()
-		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
 	
 	method moverIzquierda(){
 		bloques.forEach({bloque => bloque.moverIzquierda()})
-		ubicaciones.clear()
-		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
 	
 	method moverAbajo(){
-		
 		bloques.forEach({bloque => bloque.moverAbajo()})
-		ubicaciones.clear()
-		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 		
 	}
 	
 	method moverArriba(){
 		bloques.forEach({bloque => bloque.moverArriba()})
-		ubicaciones.clear()
-		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
 	
 	
@@ -123,8 +115,6 @@ class L{
 			bloques.get(0).moverDerecha()
 			rotacion = 0
 		}
-		ubicaciones.clear()
-		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
 	
 	method rotarIzquierda(){
@@ -164,10 +154,11 @@ class L{
 			bloques.get(0).moverAbajo()
 			rotacion = 3
 		}
-		ubicaciones.clear()
-		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
-	method ubicaciones() = ubicaciones
+	method ubicaciones() {
+		return bloques.map({bloque => bloque.position()})
+		
+	}
 	method bloques() = bloques
 	method noSaleDeTablero(){
 		//ver si cuando realizo el movimiento pedido excedo 21 en y o 11 en x
@@ -180,7 +171,6 @@ class J{
 	var x
 	var y
 	const imagen= "Bloque"+colores.anyOne()+".png"
-	const ubicaciones = []
 	const bloques = [new Bloque(position=game.at(x,y+2), image= imagen),
 		new Bloque(position=game.at(x,y+1), image= imagen),
 		new Bloque(position=game.at(x,y), image= imagen), 
@@ -191,34 +181,24 @@ class J{
 	
 	method agregarVisuales(){
 		bloques.forEach({bloque => game.addVisual(bloque)})
-		ubicaciones.clear()
-		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
 	
 	method moverDerecha(){
 		bloques.forEach({bloque => bloque.moverDerecha()})
-		ubicaciones.clear()
-		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
 	
 	method moverIzquierda(){
 		bloques.forEach({bloque => bloque.moverIzquierda()})
-		ubicaciones.clear()
-		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
 	
 	method moverAbajo(){
 		
 		bloques.forEach({bloque => bloque.moverAbajo()})
-		ubicaciones.clear()
-		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 		
 	}
 	
 	method moverArriba(){
 		bloques.forEach({bloque => bloque.moverArriba()})
-		ubicaciones.clear()
-		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
 	
 	method rotarDerecha(){
@@ -258,8 +238,6 @@ class J{
 			bloques.get(0).moverDerecha()
 			rotacion = 0
 		}
-		ubicaciones.clear()
-		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
 	
 	method rotarIzquierda(){
@@ -299,11 +277,11 @@ class J{
 			bloques.get(0).moverAbajo()
 			rotacion = 3
 		}
-		ubicaciones.clear()
-		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
 		
-	method ubicaciones() = ubicaciones
+	method ubicaciones() {
+		return bloques.map({bloque => bloque.position()})
+	}
 	method bloques() = bloques
 	method noSaleDeTablero(){
 		//ver si cuando realizo el movimiento pedido excedo 21 en y o 11 en x
@@ -319,8 +297,6 @@ class I{
 	var y
 	const imagen= "Bloque"+colores.anyOne()+".png"
 	
-	const ubicaciones = []
-	
 	const bloques = [new Bloque(position=game.at(x,y+3), image= imagen),
 		new Bloque(position=game.at(x,y+2), image= imagen),
 		new Bloque(position=game.at(x,y+1), image= imagen), 
@@ -332,35 +308,25 @@ class I{
 	
 	method agregarVisuales(){
 		bloques.forEach({bloque => game.addVisual(bloque)})
-		ubicaciones.clear()
-		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
-	}
+		}
 	
 	
 	method moverDerecha(){
 		bloques.forEach({bloque => bloque.moverDerecha()})
-		ubicaciones.clear()
-		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
 	
 	method moverIzquierda(){
 		bloques.forEach({bloque => bloque.moverIzquierda()})
-		ubicaciones.clear()
-		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
 	
 	method moverAbajo(){
 
 		bloques.forEach({bloque => bloque.moverAbajo()})
-		ubicaciones.clear()
-		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 		
 	}
 	
 	method moverArriba(){
 		bloques.forEach({bloque => bloque.moverArriba()})
-		ubicaciones.clear()
-		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
 	
 	method rotarDerecha(){
@@ -394,8 +360,6 @@ class I{
 			bloques.get(3).moverAbajo()
 			rotacion = 0
 		}
-		ubicaciones.clear()
-		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
 	
 	method rotarIzquierda(){
@@ -429,10 +393,10 @@ class I{
 			bloques.get(3).moverArriba()
 			rotacion = 1
 		}
-		ubicaciones.clear()
-		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
-	method ubicaciones() = ubicaciones
+	method ubicaciones() {
+		return bloques.map({bloque => bloque.position()})
+	}
 		method bloques() = bloques
 	method noSaleDeTablero(){
 		//ver si cuando realizo el movimiento pedido excedo 21 en y o 11 en x
@@ -446,8 +410,6 @@ class O{
 	var y
 	const imagen= "Bloque"+colores.anyOne()+".png"
 	
-	const ubicaciones = []
-	
 	const bloques = [new Bloque(position=game.at(x+1,y+1), image= imagen),
 		new Bloque(position=game.at(x+1,y), image= imagen),
 		new Bloque(position=game.at(x,y+1), image= imagen), 
@@ -456,42 +418,34 @@ class O{
 	
 	method agregarVisuales(){
 		bloques.forEach({bloque => game.addVisual(bloque)})
-		ubicaciones.clear()
-		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
 	
 	method moverDerecha(){
 		bloques.forEach({bloque => bloque.moverDerecha()})
-		ubicaciones.clear()
-		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
 	
 	method moverIzquierda(){
 		bloques.forEach({bloque => bloque.moverIzquierda()})
-		ubicaciones.clear()
-		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
 	
 	method moverAbajo(){
 		
 		bloques.forEach({bloque => bloque.moverAbajo()})
-		ubicaciones.clear()
-		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 		
 	}
 	
 	method moverArriba(){
 		bloques.forEach({bloque => bloque.moverArriba()})
-		ubicaciones.clear()
-		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
 	
 	method rotarDerecha(){}
 	
 	method rotarIzquierda(){}
 	
-	method ubicaciones() = ubicaciones
-		method bloques() = bloques
+	method ubicaciones() {
+		return bloques.map({bloque => bloque.position()})
+	}
+	method bloques() = bloques
 	
 	method noSaleDeTablero(){
 		//ver si cuando realizo el movimiento pedido excedo 21 en y o 11 en x
@@ -503,7 +457,6 @@ class S{
 	var x
 	var y
 	const imagen= "Bloque"+colores.anyOne()+".png"
-	const ubicaciones = []
 	const bloques = [new Bloque(position=game.at(x,y), image= imagen),
 		new Bloque(position=game.at(x+1,y), image= imagen),
 		new Bloque(position=game.at(x+1,y+1), image= imagen), 
@@ -514,32 +467,22 @@ class S{
 	
 	method agregarVisuales(){
 		bloques.forEach({bloque => game.addVisual(bloque)})
-		ubicaciones.clear()
-		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
 	
 	method moverDerecha(){
 		bloques.forEach({bloque => bloque.moverDerecha()})
-		ubicaciones.clear()
-		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
 	
 	method moverIzquierda(){
 		bloques.forEach({bloque => bloque.moverIzquierda()})
-		ubicaciones.clear()
-		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
 	
 	method moverAbajo(){
 		bloques.forEach({bloque => bloque.moverAbajo()})
-		ubicaciones.clear()
-		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
 	
 	method moverArriba(){
 		bloques.forEach({bloque => bloque.moverArriba()})
-		ubicaciones.clear()
-		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
 	
 	//fijarse superposicion de bloques
@@ -550,8 +493,8 @@ class S{
 			/*bloques.get(1).moverAbajo()
 			bloques.get(1).moverDerecha()
 			bloques.get(0).moverArriba()
-			bloques.get(0).moverDerecha()
-			rotacion = 1*/
+			bloques.get(0).moverDerecha()*/
+			rotacion = 1
 		}
 		else if(rotacion == 1){
 			bloques.get(3).moverArriba()
@@ -559,18 +502,18 @@ class S{
 			/*bloques.get(1).moverArriba()
 			bloques.get(1).moverIzquierda()
 			bloques.get(0).moverAbajo()
-			bloques.get(0).moverIzquierda()
-			rotacion = 0*/
+			bloques.get(0).moverIzquierda()*/
+			rotacion = 0
 		}
-		ubicaciones.clear()
-		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
 	
 	method rotarIzquierda(){
 		self.rotarDerecha()
 	}
 		
-	method ubicaciones() = ubicaciones
+	method ubicaciones() {
+		return bloques.map({bloque => bloque.position()})
+	}
 		method bloques() = bloques
 	method noSaleDeTablero(){
 		//ver si cuando realizo el movimiento pedido excedo 21 en y o 11 en x
@@ -582,7 +525,6 @@ class Z{
 	var x
 	var y
 	const imagen= "Bloque"+colores.anyOne()+".png"
-	const ubicaciones = []
 	const bloques = [new Bloque(position=game.at(x,y), image= imagen),
 		new Bloque(position=game.at(x+1,y), image= imagen),
 		new Bloque(position=game.at(x+1,y-1), image= imagen), 
@@ -593,32 +535,22 @@ class Z{
 	
 	method agregarVisuales(){
 		bloques.forEach({bloque => game.addVisual(bloque)})
-		ubicaciones.clear()
-		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
 	
 	method moverDerecha(){
 		bloques.forEach({bloque => bloque.moverDerecha()})
-		ubicaciones.clear()
-		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
 	
 	method moverIzquierda(){
 		bloques.forEach({bloque => bloque.moverIzquierda()})
-		ubicaciones.clear()
-		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
 	
 	method moverAbajo(){
 		bloques.forEach({bloque => bloque.moverAbajo()})
-		ubicaciones.clear()
-		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
 	
 	method moverArriba(){
 		bloques.forEach({bloque => bloque.moverArriba()})
-		ubicaciones.clear()
-		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
 	
 	method rotarDerecha(){
@@ -640,15 +572,15 @@ class Z{
 			bloques.get(0).moverIzquierda()
 			rotacion = 0
 		}
-		ubicaciones.clear()
-		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
 	
 	method rotarIzquierda(){
 		self.rotarDerecha()
 	}
 	
-	method ubicaciones() = ubicaciones
+	method ubicaciones() {
+		return bloques.map({bloque => bloque.position()})
+	}
 		method bloques() = bloques
 	method noSaleDeTablero(){
 		//ver si cuando realizo el movimiento pedido excedo 21 en y o 11 en x
@@ -659,7 +591,6 @@ class T{
 	var x
 	var y
 	const imagen= "Bloque"+colores.anyOne()+".png"
-	const ubicaciones = []
 	const bloques = [new Bloque(position=game.at(x,y), image= imagen),
 		new Bloque(position=game.at(x,y-1), image= imagen),
 		new Bloque(position=game.at(x-1,y-1), image= imagen), 
@@ -670,34 +601,24 @@ class T{
 	
 	method agregarVisuales(){
 		bloques.forEach({bloque => game.addVisual(bloque)})
-		ubicaciones.clear()
-		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
 	
 	method moverDerecha(){
 		bloques.forEach({bloque => bloque.moverDerecha()})
-		ubicaciones.clear()
-		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
 	
 	method moverIzquierda(){
 		bloques.forEach({bloque => bloque.moverIzquierda()})
-		ubicaciones.clear()
-		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
 	
 	method moverAbajo(){
 		
 		bloques.forEach({bloque => bloque.moverAbajo()})
-		ubicaciones.clear()
-		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 		
 	}
 	
 	method moverArriba(){
 		bloques.forEach({bloque => bloque.moverArriba()})
-		ubicaciones.clear()
-		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
 	
 	method rotarDerecha(){
@@ -737,8 +658,6 @@ class T{
 			bloques.get(0).moverDerecha()
 			rotacion = 0
 		}
-		ubicaciones.clear()
-		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
 	
 	method rotarIzquierda(){
@@ -778,11 +697,11 @@ class T{
 			bloques.get(0).moverAbajo()
 			rotacion = 3
 		}
-		ubicaciones.clear()
-		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
 		
-	method ubicaciones() = ubicaciones
+	method ubicaciones() {
+		return bloques.map({bloque => bloque.position()})
+	}
 		method bloques() = bloques
 	method noSaleDeTablero(){
 		//ver si cuando realizo el movimiento pedido excedo 21 en y o 11 en x

@@ -29,7 +29,8 @@ program juego {
 	keyboard.q().onPressDo({tablero.rotarIzquierda()})
 	keyboard.e().onPressDo({tablero.rotarDerecha()})
 
-  	keyboard.enter().onPressDo({tablero.colocarPieza()}) //no deberia existir
+
+  	//keyboard.enter().onPressDo({tablero.colocarPieza()})
   	
   	
 	game.start()

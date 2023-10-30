@@ -4,7 +4,7 @@ import Piezas.*
 object tablero {
 	
 	const bloquesTotales = []
-	var pieza
+	var pieza = new L(x=5,y=20)
 	
 	method pieza()= pieza
 	
@@ -23,7 +23,7 @@ object tablero {
 		}
 		
 	method moverArriba(){
-		 pieza.moverArriba()
+		 //pieza.moverArriba()
 		 }
 		 
 	method moverDerecha() {
@@ -43,29 +43,15 @@ object tablero {
 	method rotarDerecha() {
 		 pieza.rotarDerecha()
 		 }
-		 
-	/* 
-	method borrarLinea(){
-		var x
-		var y
-		
-		 if(game.at(x,y))
-		 
-	}
-	*/
 	
 	method controlarLinea(listaDeY) {
-		var cant
+		console.println("lista  : " + listaDeY)
 		listaDeY.forEach({y =>  
-			cant = bloquesTotales.count({bloque=>
-				bloque.position().y() == y
-				
-			})
-			if(cant == 10){
-			//se borra la linea
-			console.println("llene la linea : "+y)
-			self.borrarLinea(y)
-		}
+			if(bloquesTotales.count({bloque=> bloque.position().y() == y}) == 10){
+				//se borra la linea
+				console.println("complete la linea: " + y)
+				self.borrarLinea(y)
+			}
 		})
 	}
 	
@@ -86,6 +72,7 @@ object tablero {
 		}else{*/
 			//es valido colocar la pieza
 			bloquesTotales.addAll(pieza.bloques())
+			console.println(pieza.ubicaciones())
 			self.controlarLinea(pieza.ubicaciones().map({pos => pos.y()}).asSet())
 			self.generarPieza()
 		//}
@@ -93,7 +80,8 @@ object tablero {
 		
 	}
 	method generarPieza() {
-		const piezasPosibles = [new L(x=5,y=20),new I(x=5,y=20),new O(x=5,y=20),new J(x=5,y=20),new S(x=5,y=20),new Z(x=5,y=20),new T(x=5,y=20)]
+		const rnd = new Range(start = 1, end = 10).anyOne()
+		const piezasPosibles = [new L(x=rnd,y=20),new I(x=rnd,y=20),new O(x=rnd,y=20),new J(x=rnd,y=20),new S(x=rnd,y=20),new Z(x=rnd,y=20),new T(x=rnd,y=20)]
 		pieza = piezasPosibles.anyOne()
 		pieza.agregarVisuales()
 	}
