@@ -76,7 +76,7 @@ object tablero {
 		self.bajarDesde(linea+1)
 	}
 	method bajarDesde(linea) {
-		bloquesTotales.forEach({bloque => bloque.bajarHastaChocar()})
+		bloquesTotales.filter({bloque => bloque.position().y() >= linea}).forEach({bloque => bloque.bajarHastaChocar()})
 	}
 	
 	method colocarPieza(){
@@ -93,7 +93,7 @@ object tablero {
 		
 	}
 	method generarPieza() {
-		const piezasPosibles = [new L(x=5,y=21),new I(x=5,y=21),new O(x=5,y=21),new J(x=5,y=21),new S(x=5,y=21),new Z(x=5,y=21),new T(x=5,y=21)]
+		const piezasPosibles = [new L(x=5,y=20),new I(x=5,y=20),new O(x=5,y=20),new J(x=5,y=20),new S(x=5,y=20),new Z(x=5,y=20),new T(x=5,y=20)]
 		pieza = piezasPosibles.anyOne()
 		pieza.agregarVisuales()
 	}
