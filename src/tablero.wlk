@@ -3,7 +3,7 @@ import Piezas.*
 
 object tablero {
 	
-	const ubicacionesOcupadas = []
+	const bloquesTotales = []
 	var pieza
 	
 	method pieza()= pieza
@@ -14,9 +14,6 @@ object tablero {
 	}
 	
 	method moverAbajo() {
-	//const ocupadasX=ubicacionesOcupadas.map({ubic => ubic.x()})
-	//const ocupadasY=ubicacionesOcupadas.map({ubic => ubic.y()})
-	//const piezaY=pieza.ubicaciones().map({ubic => ubic.y()})
 		if(!pieza.ubicaciones().any({ubi => ubi.y() == 1})){
 			pieza.moverAbajo()
 			}else{
@@ -40,12 +37,10 @@ object tablero {
 		 }
 		 
 	method rotarIzquierda() {
-		if(pieza.noSaleDeTablero())
 		 pieza.rotarIzquierda()
 		 }
 		 
 	method rotarDerecha() {
-		if(pieza.noSaleDeTablero())
 		 pieza.rotarDerecha()
 		 }
 		 
@@ -59,20 +54,50 @@ object tablero {
 	}
 	*/
 	
+	method controlarLinea(listaDeY) {
+		var cant
+		listaDeY.forEach({y =>  
+			cant = bloquesTotales.count({bloque=>
+				bloque.position().y() == y
+				
+			})
+			if(cant == 10){
+			//se borra la linea
+			console.println("llene la linea : "+y)
+			self.borrarLinea(y)
+		}
+		})
+	}
+	
+	method borrarLinea(linea) {
+		const bloquesAEliminar = bloquesTotales.filter({bloque => bloque.position().y() == linea})
+		bloquesAEliminar.forEach({bloque => bloque.borrar()})
+		bloquesTotales.removeAllSuchThat({bloque => bloquesAEliminar.contains(bloque)})
+		self.bajarDesde(linea+1)
+	}
+	method bajarDesde(linea) {
+		bloquesTotales.forEach({bloque => bloque.bajarHastaChocar()})
+	}
+	
 	method colocarPieza(){
-		if(pieza.ubicaciones().any({ubi => ubicacionesOcupadas.contains(ubi)})){
+		/*if(pieza.ubicaciones().any({ubi => ubicacionesOcupadas.contains(ubi)})){
 			//no se puede colocar la pieza
 
-		}else{
+		}else{*/
 			//es valido colocar la pieza
-			ubicacionesOcupadas.addAll(pieza.ubicaciones())
+			bloquesTotales.addAll(pieza.bloques())
+			self.controlarLinea(pieza.ubicaciones().map({pos => pos.y()}).asSet())
 			self.generarPieza()
-		}
+		//}
+		
 		
 	}
 	method generarPieza() {
-		const piezasPosibles = [new L(x=5,y=22),new I(x=5,y=22),new O(x=5,y=22),new J(x=5,y=22),new S(x=5,y=22),new Z(x=5,y=22),new T(x=5,y=22)]
+		const piezasPosibles = [new L(x=5,y=21),new I(x=5,y=21),new O(x=5,y=21),new J(x=5,y=21),new S(x=5,y=21),new Z(x=5,y=21),new T(x=5,y=21)]
 		pieza = piezasPosibles.anyOne()
 		pieza.agregarVisuales()
 	}
+	
+	
+	
 }

@@ -8,6 +8,7 @@ class Bloque{ //cada cuadradito
 	
 	var property position
 	var property image
+	var choco = false
 	
 	method moverIzquierda(){
 		self.position(position.left(1))
@@ -18,21 +19,32 @@ class Bloque{ //cada cuadradito
 	}
 	
 	method moverAbajo(){
-		game.whenCollideDo(self,{x=>tablero.moverArriba() tablero.colocarPieza()})
+		game.whenCollideDo(self,{x=>tablero.moverArriba() tablero.colocarPieza() choco = true})
 		self.position(position.down(1))
 	}
 	
 	method moverArriba(){
 		self.position(position.up(1))
 	}
+	method borrar(){
+		game.removeVisual(self)
+	}
+	method bajarHastaChocar(){
+		if(!choco){
+			self.moverAbajo()
+		}
+	}
 }
+
+
 
 class L{	
 	var x
 	var y
 	const imagen= "Bloque"+colores.anyOne()+".png"
 	const ubicaciones = []
-	const bloques = [new Bloque(position=game.at(x,y+2), image= imagen),
+	
+	 const bloques = [new Bloque(position=game.at(x,y+2), image= imagen),
 		new Bloque(position=game.at(x,y+1), image= imagen),
 		new Bloque(position=game.at(x,y), image= imagen), 
 		new Bloque(position=game.at(x+1,y), image= imagen)
@@ -72,6 +84,7 @@ class L{
 		ubicaciones.clear()
 		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
+	
 	
 	method rotarDerecha(){
 		if(rotacion == 0){
@@ -155,6 +168,7 @@ class L{
 		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
 	method ubicaciones() = ubicaciones
+	method bloques() = bloques
 	method noSaleDeTablero(){
 		//ver si cuando realizo el movimiento pedido excedo 21 en y o 11 en x
 		return true
@@ -290,6 +304,7 @@ class J{
 	}
 		
 	method ubicaciones() = ubicaciones
+	method bloques() = bloques
 	method noSaleDeTablero(){
 		//ver si cuando realizo el movimiento pedido excedo 21 en y o 11 en x
 		return true
@@ -418,6 +433,7 @@ class I{
 		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
 	method ubicaciones() = ubicaciones
+		method bloques() = bloques
 	method noSaleDeTablero(){
 		//ver si cuando realizo el movimiento pedido excedo 21 en y o 11 en x
 		return true
@@ -475,6 +491,7 @@ class O{
 	method rotarIzquierda(){}
 	
 	method ubicaciones() = ubicaciones
+		method bloques() = bloques
 	
 	method noSaleDeTablero(){
 		//ver si cuando realizo el movimiento pedido excedo 21 en y o 11 en x
@@ -525,24 +542,25 @@ class S{
 		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
 	}
 	
+	//fijarse superposicion de bloques
 	method rotarDerecha(){
 		if(rotacion == 0){
 			bloques.get(3).moverAbajo()
 			bloques.get(3).moverAbajo()
-			bloques.get(1).moverAbajo()
+			/*bloques.get(1).moverAbajo()
 			bloques.get(1).moverDerecha()
 			bloques.get(0).moverArriba()
 			bloques.get(0).moverDerecha()
-			rotacion = 1
+			rotacion = 1*/
 		}
 		else if(rotacion == 1){
 			bloques.get(3).moverArriba()
 			bloques.get(3).moverArriba()
-			bloques.get(1).moverArriba()
+			/*bloques.get(1).moverArriba()
 			bloques.get(1).moverIzquierda()
 			bloques.get(0).moverAbajo()
 			bloques.get(0).moverIzquierda()
-			rotacion = 0
+			rotacion = 0*/
 		}
 		ubicaciones.clear()
 		bloques.forEach({bloque => ubicaciones.add(bloque.position())})
@@ -553,6 +571,7 @@ class S{
 	}
 		
 	method ubicaciones() = ubicaciones
+		method bloques() = bloques
 	method noSaleDeTablero(){
 		//ver si cuando realizo el movimiento pedido excedo 21 en y o 11 en x
 		return true	
@@ -630,6 +649,7 @@ class Z{
 	}
 	
 	method ubicaciones() = ubicaciones
+		method bloques() = bloques
 	method noSaleDeTablero(){
 		//ver si cuando realizo el movimiento pedido excedo 21 en y o 11 en x
 		return true
@@ -763,6 +783,7 @@ class T{
 	}
 		
 	method ubicaciones() = ubicaciones
+		method bloques() = bloques
 	method noSaleDeTablero(){
 		//ver si cuando realizo el movimiento pedido excedo 21 en y o 11 en x
 		return true
