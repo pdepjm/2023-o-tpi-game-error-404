@@ -3,8 +3,8 @@ import Piezas.*
 
 object puntaje {
 	var property puntajeActual = 0
-	method position() = game.at(14,19)
-	method text() = "puntaje:"+puntajeActual
+	method position() = game.at(13,18)
+	method text() = "PUNTAJE: "+puntajeActual
 	method textColor() = "FFFFFF"
 	method height()=10
 	method width()=10
