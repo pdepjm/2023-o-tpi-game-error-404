@@ -83,6 +83,7 @@ object tablero {
 		const rnd = new Range(start = 1, end = 10).anyOne()
 		const piezasPosibles = [new L(x=rnd,y=20),new I(x=rnd,y=20),new O(x=rnd,y=20),new J(x=rnd,y=20),new S(x=rnd,y=20),new Z(x=rnd,y=20),new T(x=rnd,y=20)]
 		pieza = piezasPosibles.anyOne()
+		pieza.agregarBloques()
 		pieza.agregarVisuales()
 	}
 	

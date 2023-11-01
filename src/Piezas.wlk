@@ -40,21 +40,16 @@ class Bloque{ //cada cuadradito
 	}
 }
 
-
-
-class L{	
+class Pieza{
 	var x
 	var y
 	const imagen= "Bloque"+colores.anyOne()+".png"
 	
-	 const bloques = [new Bloque(position=game.at(x,y+2), image= imagen),
-		new Bloque(position=game.at(x,y+1), image= imagen),
-		new Bloque(position=game.at(x,y), image= imagen), 
-		new Bloque(position=game.at(x+1,y), image= imagen)
-	]
+	const bloques=[]
 	
-	//0 es q no roto, a la derecha suma 1, a la izquierda resta
-	var rotacion = 0 
+	var rotacion=0
+	
+	method agregarBloques()
 	
 	method agregarVisuales(){
 		bloques.forEach({bloque => game.addVisual(bloque)})
@@ -77,8 +72,35 @@ class L{
 		bloques.forEach({bloque => bloque.moverArriba()})
 	}
 	
+	method rotarDerecha()
+	method rotarIzquierda()
 	
-	method rotarDerecha(){
+	method ubicaciones() {
+		return bloques.map({bloque => bloque.position()})
+		
+	}
+	method bloques() = bloques
+	method noSaleDeTablero(){
+		//ver si cuando realizo el movimiento pedido excedo 21 en y o 11 en x
+		return true
+		
+	}
+	
+}
+
+class L inherits Pieza{	
+	
+	override method agregarBloques(){
+		bloques.add(new Bloque(position=game.at(x,y+2), image= imagen))
+		bloques.add(new Bloque(position=game.at(x,y+1), image= imagen))
+		bloques.add(new Bloque(position=game.at(x,y), image= imagen))
+		bloques.add(new Bloque(position=game.at(x+1,y), image= imagen))
+	}
+	
+	//0 es q no roto, a la derecha suma 1, a la izquierda resta 
+	
+	
+	override method rotarDerecha(){
 		if(rotacion == 0){
 			bloques.get(3).moverIzquierda()
 			bloques.get(3).moverIzquierda()
@@ -117,7 +139,7 @@ class L{
 		}
 	}
 	
-	method rotarIzquierda(){
+	override method rotarIzquierda(){
 		if(rotacion == 1){
 			bloques.get(3).moverDerecha()
 			bloques.get(3).moverDerecha()
@@ -155,53 +177,18 @@ class L{
 			rotacion = 3
 		}
 	}
-	method ubicaciones() {
-		return bloques.map({bloque => bloque.position()})
-		
-	}
-	method bloques() = bloques
-	method noSaleDeTablero(){
-		//ver si cuando realizo el movimiento pedido excedo 21 en y o 11 en x
-		return true
-		
-	}
 }
 
-class J{	
-	var x
-	var y
-	const imagen= "Bloque"+colores.anyOne()+".png"
-	const bloques = [new Bloque(position=game.at(x,y+2), image= imagen),
-		new Bloque(position=game.at(x,y+1), image= imagen),
-		new Bloque(position=game.at(x,y), image= imagen), 
-		new Bloque(position=game.at(x-1,y), image= imagen)]
+class J inherits Pieza{	
 	
-	//0 es q no roto, a la derecha suma 1, a la izquierda resta
-	var rotacion = 0 
-	
-	method agregarVisuales(){
-		bloques.forEach({bloque => game.addVisual(bloque)})
+	override method agregarBloques(){
+		bloques.add(new Bloque(position=game.at(x,y+2), image= imagen))
+		bloques.add(new Bloque(position=game.at(x,y+1), image= imagen))
+		bloques.add(new Bloque(position=game.at(x,y), image= imagen))
+		bloques.add(new Bloque(position=game.at(x-1,y), image= imagen))
 	}
 	
-	method moverDerecha(){
-		bloques.forEach({bloque => bloque.moverDerecha()})
-	}
-	
-	method moverIzquierda(){
-		bloques.forEach({bloque => bloque.moverIzquierda()})
-	}
-	
-	method moverAbajo(){
-		
-		bloques.forEach({bloque => bloque.moverAbajo()})
-		
-	}
-	
-	method moverArriba(){
-		bloques.forEach({bloque => bloque.moverArriba()})
-	}
-	
-	method rotarDerecha(){
+	override method rotarDerecha(){
 		if(rotacion == 0){
 			bloques.get(3).moverArriba()
 			bloques.get(3).moverArriba()
@@ -240,7 +227,7 @@ class J{
 		}
 	}
 	
-	method rotarIzquierda(){
+	override method rotarIzquierda(){
 		if(rotacion == 1){
 			bloques.get(3).moverAbajo()
 			bloques.get(3).moverAbajo()
@@ -279,57 +266,19 @@ class J{
 		}
 	}
 		
-	method ubicaciones() {
-		return bloques.map({bloque => bloque.position()})
-	}
-	method bloques() = bloques
-	method noSaleDeTablero(){
-		//ver si cuando realizo el movimiento pedido excedo 21 en y o 11 en x
-		return true
-		
-	}
 }
 
-
-class I{	
+class I inherits Pieza{	
 	
-	var x
-	var y
-	const imagen= "Bloque"+colores.anyOne()+".png"
-	
-	const bloques = [new Bloque(position=game.at(x,y+3), image= imagen),
-		new Bloque(position=game.at(x,y+2), image= imagen),
-		new Bloque(position=game.at(x,y+1), image= imagen), 
-		new Bloque(position=game.at(x,y), image= imagen)
-	]
-	
-	//0 es q no roto, a la derecha suma 1, a la izquierda resta
-	var rotacion = 0 
-	
-	method agregarVisuales(){
-		bloques.forEach({bloque => game.addVisual(bloque)})
-		}
-	
-	
-	method moverDerecha(){
-		bloques.forEach({bloque => bloque.moverDerecha()})
-	}
-	
-	method moverIzquierda(){
-		bloques.forEach({bloque => bloque.moverIzquierda()})
-	}
-	
-	method moverAbajo(){
-
-		bloques.forEach({bloque => bloque.moverAbajo()})
+	override method agregarBloques(){
+		bloques.add(new Bloque(position=game.at(x,y+3), image= imagen))
+		bloques.add(new Bloque(position=game.at(x,y+2), image= imagen))
+		bloques.add(new Bloque(position=game.at(x,y+1), image= imagen))
+		bloques.add(new Bloque(position=game.at(x,y), image= imagen))
 		
 	}
 	
-	method moverArriba(){
-		bloques.forEach({bloque => bloque.moverArriba()})
-	}
-	
-	method rotarDerecha(){
+	override method rotarDerecha(){
 		if(rotacion == 0){
 			bloques.get(1).moverDerecha()
 			bloques.get(1).moverArriba()
@@ -362,7 +311,7 @@ class I{
 		}
 	}
 	
-	method rotarIzquierda(){
+	override method rotarIzquierda(){
 		if(rotacion == 1){
 			bloques.get(1).moverIzquierda()
 			bloques.get(1).moverAbajo()
@@ -394,99 +343,36 @@ class I{
 			rotacion = 1
 		}
 	}
-	method ubicaciones() {
-		return bloques.map({bloque => bloque.position()})
-	}
-		method bloques() = bloques
-	method noSaleDeTablero(){
-		//ver si cuando realizo el movimiento pedido excedo 21 en y o 11 en x
-		return true
-	}
+
 }
 
-class O{	
+class O inherits Pieza{	
 	
-	var x
-	var y
-	const imagen= "Bloque"+colores.anyOne()+".png"
-	
-	const bloques = [new Bloque(position=game.at(x+1,y+1), image= imagen),
-		new Bloque(position=game.at(x+1,y), image= imagen),
-		new Bloque(position=game.at(x,y+1), image= imagen), 
-		new Bloque(position=game.at(x,y), image= imagen)
-	]
-	
-	method agregarVisuales(){
-		bloques.forEach({bloque => game.addVisual(bloque)})
-	}
-	
-	method moverDerecha(){
-		bloques.forEach({bloque => bloque.moverDerecha()})
-	}
-	
-	method moverIzquierda(){
-		bloques.forEach({bloque => bloque.moverIzquierda()})
-	}
-	
-	method moverAbajo(){
+	override method agregarBloques(){
+		bloques.add(new Bloque(position=game.at(x+1,y+1), image= imagen))
+		bloques.add(new Bloque(position=game.at(x+1,y), image= imagen))
+		bloques.add(new Bloque(position=game.at(x,y+1), image= imagen))
+		bloques.add(new Bloque(position=game.at(x,y), image= imagen))
 		
-		bloques.forEach({bloque => bloque.moverAbajo()})
-		
-	}
+	}	
 	
-	method moverArriba(){
-		bloques.forEach({bloque => bloque.moverArriba()})
-	}
+	override method rotarDerecha(){}
 	
-	method rotarDerecha(){}
-	
-	method rotarIzquierda(){}
-	
-	method ubicaciones() {
-		return bloques.map({bloque => bloque.position()})
-	}
-	method bloques() = bloques
-	
-	method noSaleDeTablero(){
-		//ver si cuando realizo el movimiento pedido excedo 21 en y o 11 en x
-		return true
-	}
+	override method rotarIzquierda(){}
+
 }
 
-class S{	
-	var x
-	var y
-	const imagen= "Bloque"+colores.anyOne()+".png"
-	const bloques = [new Bloque(position=game.at(x,y), image= imagen),
-		new Bloque(position=game.at(x+1,y), image= imagen),
-		new Bloque(position=game.at(x+1,y+1), image= imagen), 
-		new Bloque(position=game.at(x+2,y+1), image= imagen)]
+class S inherits Pieza{	
 	
-	//0 es q no roto, a la derecha suma 1, a la izquierda resta
-	var rotacion = 0 
-	
-	method agregarVisuales(){
-		bloques.forEach({bloque => game.addVisual(bloque)})
-	}
-	
-	method moverDerecha(){
-		bloques.forEach({bloque => bloque.moverDerecha()})
-	}
-	
-	method moverIzquierda(){
-		bloques.forEach({bloque => bloque.moverIzquierda()})
-	}
-	
-	method moverAbajo(){
-		bloques.forEach({bloque => bloque.moverAbajo()})
-	}
-	
-	method moverArriba(){
-		bloques.forEach({bloque => bloque.moverArriba()})
-	}
+	override method agregarBloques(){
+		bloques.add(new Bloque(position=game.at(x,y), image= imagen))
+		bloques.add(new Bloque(position=game.at(x+1,y), image= imagen))
+		bloques.add(new Bloque(position=game.at(x+1,y+1), image= imagen)) 
+		bloques.add(new Bloque(position=game.at(x+2,y+1), image= imagen))
+	}	
 	
 	//fijarse superposicion de bloques
-	method rotarDerecha(){
+	override method rotarDerecha(){
 		if(rotacion == 0){
 			bloques.get(3).moverAbajo()
 			bloques.get(3).moverAbajo()
@@ -507,53 +393,24 @@ class S{
 		}
 	}
 	
-	method rotarIzquierda(){
+	override method rotarIzquierda(){
 		self.rotarDerecha()
 	}
-		
-	method ubicaciones() {
-		return bloques.map({bloque => bloque.position()})
-	}
-		method bloques() = bloques
-	method noSaleDeTablero(){
-		//ver si cuando realizo el movimiento pedido excedo 21 en y o 11 en x
-		return true	
-	}
+
 }
 
-class Z{	
-	var x
-	var y
-	const imagen= "Bloque"+colores.anyOne()+".png"
-	const bloques = [new Bloque(position=game.at(x,y), image= imagen),
-		new Bloque(position=game.at(x+1,y), image= imagen),
-		new Bloque(position=game.at(x+1,y-1), image= imagen), 
-		new Bloque(position=game.at(x+2,y-1), image= imagen)]
+class Z inherits Pieza{	
+	
+	override method agregarBloques(){
+		bloques.add(new Bloque(position=game.at(x,y), image= imagen))
+		bloques.add(new Bloque(position=game.at(x+1,y), image= imagen))
+		bloques.add(new Bloque(position=game.at(x+1,y-1), image= imagen)) 
+		bloques.add(new Bloque(position=game.at(x+2,y-1), image= imagen))
+	}	
 	
 	//0 es q no roto, a la derecha suma 1, a la izquierda resta
-	var rotacion = 0 
 	
-	method agregarVisuales(){
-		bloques.forEach({bloque => game.addVisual(bloque)})
-	}
-	
-	method moverDerecha(){
-		bloques.forEach({bloque => bloque.moverDerecha()})
-	}
-	
-	method moverIzquierda(){
-		bloques.forEach({bloque => bloque.moverIzquierda()})
-	}
-	
-	method moverAbajo(){
-		bloques.forEach({bloque => bloque.moverAbajo()})
-	}
-	
-	method moverArriba(){
-		bloques.forEach({bloque => bloque.moverArriba()})
-	}
-	
-	method rotarDerecha(){
+	override method rotarDerecha(){
 		if(rotacion == 0){
 			bloques.get(3).moverAbajo()
 			bloques.get(3).moverIzquierda()
@@ -574,54 +431,22 @@ class Z{
 		}
 	}
 	
-	method rotarIzquierda(){
+	override method rotarIzquierda(){
 		self.rotarDerecha()
 	}
-	
-	method ubicaciones() {
-		return bloques.map({bloque => bloque.position()})
-	}
-		method bloques() = bloques
-	method noSaleDeTablero(){
-		//ver si cuando realizo el movimiento pedido excedo 21 en y o 11 en x
-		return true
-	}
+
 }
-class T{	
-	var x
-	var y
-	const imagen= "Bloque"+colores.anyOne()+".png"
-	const bloques = [new Bloque(position=game.at(x,y), image= imagen),
-		new Bloque(position=game.at(x,y-1), image= imagen),
-		new Bloque(position=game.at(x-1,y-1), image= imagen), 
-		new Bloque(position=game.at(x+1,y-1), image= imagen)]
+
+class T inherits Pieza{	
 	
-	//0 es q no roto, a la derecha suma 1, a la izquierda resta
-	var rotacion = 0 
-	
-	method agregarVisuales(){
-		bloques.forEach({bloque => game.addVisual(bloque)})
+	override method agregarBloques(){
+		bloques.add(new Bloque(position=game.at(x,y), image= imagen))
+		bloques.add(new Bloque(position=game.at(x,y-1), image= imagen))
+		bloques.add(new Bloque(position=game.at(x-1,y-1), image= imagen)) 
+		bloques.add(new Bloque(position=game.at(x+1,y-1), image= imagen))
 	}
 	
-	method moverDerecha(){
-		bloques.forEach({bloque => bloque.moverDerecha()})
-	}
-	
-	method moverIzquierda(){
-		bloques.forEach({bloque => bloque.moverIzquierda()})
-	}
-	
-	method moverAbajo(){
-		
-		bloques.forEach({bloque => bloque.moverAbajo()})
-		
-	}
-	
-	method moverArriba(){
-		bloques.forEach({bloque => bloque.moverArriba()})
-	}
-	
-	method rotarDerecha(){
+	override method rotarDerecha(){
 		if(rotacion == 0){
 			bloques.get(3).moverAbajo()
 			bloques.get(3).moverIzquierda()
@@ -660,7 +485,7 @@ class T{
 		}
 	}
 	
-	method rotarIzquierda(){
+	override method rotarIzquierda(){
 		if(rotacion == 1){
 			bloques.get(3).moverArriba()
 			bloques.get(3).moverDerecha()
@@ -697,15 +522,5 @@ class T{
 			bloques.get(0).moverAbajo()
 			rotacion = 3
 		}
-	}
-		
-	method ubicaciones() {
-		return bloques.map({bloque => bloque.position()})
-	}
-		method bloques() = bloques
-	method noSaleDeTablero(){
-		//ver si cuando realizo el movimiento pedido excedo 21 en y o 11 en x
-		return true
-		
 	}
 }
