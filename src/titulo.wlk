@@ -13,4 +13,3 @@ object texto {
 	method height()=10
 	method width()=10
 }
-

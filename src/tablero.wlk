@@ -1,7 +1,18 @@
 import wollok.game.*
 import Piezas.*
 
+object puntaje {
+	var property puntajeActual = 0
+	method position() = game.at(14,19)
+	method text() = "puntaje:"+puntajeActual
+	method textColor() = "FFFFFF"
+	method height()=10
+	method width()=10
+}
+
+
 object tablero {
+	
 	
 	const bloquesTotales = []
 	var pieza = new L(x=5,y=20)
@@ -11,6 +22,7 @@ object tablero {
 	method iniciar() {
 		self.generarPieza()
 		game.onTick(800, "movimiento", { self.moverAbajo() })
+		game.addVisual(puntaje)
 	}
 	
 	method moverAbajo() {
@@ -60,6 +72,7 @@ object tablero {
 		bloquesAEliminar.forEach({bloque => bloque.borrar()})
 		bloquesTotales.removeAllSuchThat({bloque => bloquesAEliminar.contains(bloque)})
 		self.bajarDesde(linea+1)
+		puntaje.puntajeActual(puntaje.puntajeActual() + 10)
 	}
 	method bajarDesde(linea) {
 		bloquesTotales.filter({bloque => bloque.position().y() >= linea}).forEach({bloque => bloque.bajarHastaChocar()})

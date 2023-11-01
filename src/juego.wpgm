@@ -16,6 +16,7 @@ program juego {
   	game.addVisual(texto)
   	
   	
+  	
   	/* Presionamos espacio y desaparece el titulo y la leyenda de debajo */
   	keyboard.space().onPressDo({game.removeVisual(texto)})
   	keyboard.space().onPressDo({game.removeVisual(titulo)})
