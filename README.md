@@ -10,7 +10,9 @@
 
 ## Capturas
 
-(agregar)
+<img src="home.png" alt="screenshot" width="300"/>
+<img src="game.png" alt="screenshot" width="300"/>
+
 
 ## Reglas de Juego / Instrucciones
 
