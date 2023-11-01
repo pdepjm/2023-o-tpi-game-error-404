@@ -1,14 +1,8 @@
 import wollok.game.*
 import Piezas.*
+import sonidos.*
+import titulo.*
 
-object puntaje {
-	var property puntajeActual = 0
-	method position() = game.at(13,18)
-	method text() = "PUNTAJE: "+puntajeActual
-	method textColor() = "FFFFFF"
-	method height()=10
-	method width()=10
-}
 
 
 object tablero {
@@ -22,7 +16,17 @@ object tablero {
 	method iniciar() {
 		self.generarPieza()
 		game.onTick(800, "movimiento", { self.moverAbajo() })
+		musica.play()
+		musica.volumen(0.1)
+		musica.shouldLoop(true)
 		game.addVisual(puntaje)
+		game.addVisual(nivel)
+	}
+	
+	method cambiarNivel(valor,level){
+		game.removeTickEvent("movimiento")
+		game.onTick(valor, "movimiento", { self.moverAbajo() })
+		nivel.nivel(level)
 	}
 	
 	method moverAbajo() {
@@ -67,6 +71,15 @@ object tablero {
 		})
 	}
 	
+	method controlarFinJuego() {
+		if(bloquesTotales.any({bloque =>  bloque.position().y()>=20})){
+			console.println("Perdiste")
+			bloquesTotales.forEach({bloque=>bloque.borrar()})
+			bloquesTotales.clear()
+			puntaje.puntajeActual(0)
+		}
+	}
+	
 	method borrarLinea(linea) {
 		const bloquesAEliminar = bloquesTotales.filter({bloque => bloque.position().y() == linea})
 		bloquesAEliminar.forEach({bloque => bloque.borrar()})
@@ -85,6 +98,7 @@ object tablero {
 		}else{*/
 			//es valido colocar la pieza
 			bloquesTotales.addAll(pieza.bloques())
+			self.controlarFinJuego()
 			console.println(pieza.ubicaciones())
 			self.controlarLinea(pieza.ubicaciones().map({pos => pos.y()}).asSet())
 			self.generarPieza()

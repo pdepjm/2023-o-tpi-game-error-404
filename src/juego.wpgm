@@ -2,6 +2,7 @@ import wollok.game.*
 import Piezas.*
 import titulo.*
 import tablero.*
+import sonidos.*
 
 
 program juego {
@@ -14,6 +15,7 @@ program juego {
   	game.boardGround("board.png") 
   	game.addVisual(titulo)
   	game.addVisual(texto)
+  	
   	
   	
   	
@@ -33,6 +35,10 @@ program juego {
 
   	keyboard.enter().onPressDo({tablero.colocarPieza()})
   	
+  	keyboard.num1().onPressDo({tablero.cambiarNivel(800,1)})
+  	keyboard.num2().onPressDo({tablero.cambiarNivel(600,2)})
+  	keyboard.num3().onPressDo({tablero.cambiarNivel(400,3)})
+  	keyboard.num4().onPressDo({tablero.cambiarNivel(100,4)})
   	 
 	game.start()
 	

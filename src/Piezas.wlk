@@ -36,7 +36,7 @@ class Bloque{ //cada cuadradito
 		}
 	}
 	method comprobarColision(){
-		game.whenCollideDo(self,{x=>tablero.moverArriba() tablero.colocarPieza() choco = true})
+		//game.whenCollideDo(self,{x=>tablero.moverArriba() tablero.colocarPieza() choco = true})
 	}
 }
 
