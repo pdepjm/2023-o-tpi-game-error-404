@@ -3,13 +3,32 @@ import Piezas.*
 import sonidos.*
 import titulo.*
 
+object nivel1{
+	method nivel() = 1
+	method tiempo() = 800
+}
 
+object nivel2{
+	method nivel() = 2
+	method tiempo() = 600
+}
+
+object nivel3{
+	method nivel() = 3
+	method tiempo() = 400
+}
+
+object nivel4{
+	method nivel() = 4
+	method tiempo() = 200
+}
 
 object tablero {
 	
 	
 	const bloquesTotales = []
 	var pieza = new L(x=5,y=20)
+	var nivelActual = 1
 	
 	method pieza()= pieza
 	
@@ -23,10 +42,25 @@ object tablero {
 		game.addVisual(nivel)
 	}
 	
-	method cambiarNivel(valor,level){
+	method subirNivel(){
+		if(nivelActual <= 4){
+			const niveles = [nivel1,nivel2,nivel3,nivel4]
+		    self.cambiarNivel(niveles.get(nivelActual))
+		}
+				
+	}
+		
+	method cambiarNivel(nivelObjeto){
 		game.removeTickEvent("movimiento")
-		game.onTick(valor, "movimiento", { self.moverAbajo() })
-		nivel.nivel(level)
+		game.onTick(nivelObjeto.tiempo(), "movimiento", { self.moverAbajo() })
+		nivel.nivelTexto(nivelObjeto.nivel())
+		nivelActual = nivelObjeto.nivel()
+	}
+	
+	method controlarCambioDeNivel(){
+		if(puntaje.puntajeActual() >= 50 && puntaje.puntajeActual() <= 100 && nivelActual != 2){ self.subirNivel() }
+		else if(puntaje.puntajeActual() >= 100 && puntaje.puntajeActual() <= 200 && nivelActual != 3){ self.subirNivel() }
+		else if(puntaje.puntajeActual() >= 200 && nivelActual != 4){ self.subirNivel() }
 	}
 	
 	method moverAbajo() {
@@ -77,6 +111,7 @@ object tablero {
 			bloquesTotales.forEach({bloque=>bloque.borrar()})
 			bloquesTotales.clear()
 			puntaje.puntajeActual(0)
+			self.cambiarNivel(nivel1)
 		}
 	}
 	
@@ -112,8 +147,7 @@ object tablero {
 		pieza = piezasPosibles.anyOne()
 		pieza.agregarBloques()
 		pieza.agregarVisuales()
+		self.controlarCambioDeNivel()
 	}
-	
-	
-	
+			
 }

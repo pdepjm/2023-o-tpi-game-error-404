@@ -22,8 +22,8 @@ object puntaje {
 }
 
 object nivel{
-	var property nivel = 1
+	var property nivelTexto = 1
 	method position() = game.at(13,14)
-	method text() = "Nivel: "+nivel
+	method text() = "Nivel: "+nivelTexto
 	method textColor() = "FFFFFF"
 }

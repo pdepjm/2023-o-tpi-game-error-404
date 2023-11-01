@@ -27,7 +27,7 @@ program juego {
   	keyboard.down().onPressDo({tablero.moverAbajo()})
   	keyboard.left().onPressDo({tablero.moverIzquierda()})
 	keyboard.right().onPressDo({tablero.moverDerecha()})
-	keyboard.up().onPressDo({tablero.moverArriba()})
+	//keyboard.up().onPressDo({tablero.moverArriba()})
 	
 	keyboard.q().onPressDo({tablero.rotarIzquierda()})
 	keyboard.e().onPressDo({tablero.rotarDerecha()})
@@ -35,15 +35,13 @@ program juego {
 
   	keyboard.enter().onPressDo({tablero.colocarPieza()})
   	
-  	keyboard.num1().onPressDo({tablero.cambiarNivel(800,1)})
-  	keyboard.num2().onPressDo({tablero.cambiarNivel(600,2)})
-  	keyboard.num3().onPressDo({tablero.cambiarNivel(400,3)})
-  	keyboard.num4().onPressDo({tablero.cambiarNivel(100,4)})
+  	keyboard.num1().onPressDo({tablero.cambiarNivel(nivel1)})
+  	keyboard.num2().onPressDo({tablero.cambiarNivel(nivel2)})
+  	keyboard.num3().onPressDo({tablero.cambiarNivel(nivel3)})
+  	keyboard.num4().onPressDo({tablero.cambiarNivel(nivel4)})
   	 
 	game.start()
-	
-	
-	
+			
 }
 
 

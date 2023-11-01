@@ -8,7 +8,6 @@ class Bloque{ //cada cuadradito
 	
 	var property position
 	var property image
-	var choco = false
 	
 	method moverIzquierda(){
 		self.position(position.left(1))
@@ -30,13 +29,11 @@ class Bloque{ //cada cuadradito
 		game.removeVisual(self)
 	}
 	method bajarHastaChocar(){
-		if(!choco){
-			self.moverAbajo()
-			choco = false
-		}
+		self.moverAbajo()
 	}
+	
 	method comprobarColision(){
-		//game.whenCollideDo(self,{x=>tablero.moverArriba() tablero.colocarPieza() choco = true})
+		game.whenCollideDo(self,{x=>tablero.moverArriba() tablero.colocarPieza()})
 	}
 }
 
