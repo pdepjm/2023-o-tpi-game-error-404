@@ -376,19 +376,20 @@ class S inherits Pieza{
 		if(rotacion == 0){
 			bloques.get(3).moverAbajo()
 			bloques.get(3).moverAbajo()
-			/*bloques.get(1).moverAbajo()
-			bloques.get(1).moverDerecha()
+			bloques.get(3).moverIzquierda()
+			bloques.get(2).moverAbajo()
+			bloques.get(1).moverIzquierda()
 			bloques.get(0).moverArriba()
-			bloques.get(0).moverDerecha()*/
+			
 			rotacion = 1
 		}
 		else if(rotacion == 1){
 			bloques.get(3).moverArriba()
 			bloques.get(3).moverArriba()
-			/*bloques.get(1).moverArriba()
-			bloques.get(1).moverIzquierda()
+			bloques.get(3).moverDerecha()
+			bloques.get(2).moverArriba()
+			bloques.get(1).moverDerecha()
 			bloques.get(0).moverAbajo()
-			bloques.get(0).moverIzquierda()*/
 			rotacion = 0
 		}
 	}

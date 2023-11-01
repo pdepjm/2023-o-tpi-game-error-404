@@ -23,7 +23,7 @@ object tablero {
 		}
 		
 	method moverArriba(){
-		 //pieza.moverArriba()
+		 pieza.moverArriba()
 		 }
 		 
 	method moverDerecha() {

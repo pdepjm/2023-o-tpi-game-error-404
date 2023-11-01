@@ -8,7 +8,7 @@ program juego {
 	
 	
 	game.title("TETRIS")
-	game.width(12)
+	game.width(16)
   	game.height(22)
   	game.cellSize(40)
   	game.boardGround("board.png") 
@@ -30,12 +30,13 @@ program juego {
 	keyboard.e().onPressDo({tablero.rotarDerecha()})
 
 
-  	//keyboard.enter().onPressDo({tablero.colocarPieza()})
+  	keyboard.enter().onPressDo({tablero.colocarPieza()})
   	
-  	
+  	 
 	game.start()
 	
 	
 	
 }
+
 
