@@ -33,6 +33,7 @@ class Bloque{ //cada cuadradito
 	}
 	
 	method comprobarColision(){
+		/*Primero probar que pueda coocarse y luego colocarlo */
 		game.whenCollideDo(self,{x=>tablero.moverArriba() tablero.colocarPieza()})
 	}
 }

@@ -35,9 +35,9 @@ object tablero {
 	method iniciar() {
 		self.generarPieza()
 		game.onTick(800, "movimiento", { self.moverAbajo() })
-		musica.play()
+		musica.reproducir()
 		musica.volumen(0.1)
-		musica.shouldLoop(true)
+		musica.loop(true)
 		game.addVisual(puntaje)
 		game.addVisual(nivel)
 	}
@@ -101,6 +101,7 @@ object tablero {
 				//se borra la linea
 				console.println("complete la linea: " + y)
 				self.borrarLinea(y)
+				self.controlarLinea(listaDeY)
 			}
 		})
 	}
@@ -111,6 +112,7 @@ object tablero {
 			bloquesTotales.forEach({bloque=>bloque.borrar()})
 			bloquesTotales.clear()
 			puntaje.puntajeActual(0)
+			//sonidoFinJuego.reproducir()
 			self.cambiarNivel(nivel1)
 		}
 	}
@@ -137,6 +139,8 @@ object tablero {
 			console.println(pieza.ubicaciones())
 			self.controlarLinea(pieza.ubicaciones().map({pos => pos.y()}).asSet())
 			self.generarPieza()
+			
+			
 		//}
 		
 		

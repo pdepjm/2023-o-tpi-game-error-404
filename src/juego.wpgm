@@ -39,6 +39,9 @@ program juego {
   	keyboard.num2().onPressDo({tablero.cambiarNivel(nivel2)})
   	keyboard.num3().onPressDo({tablero.cambiarNivel(nivel3)})
   	keyboard.num4().onPressDo({tablero.cambiarNivel(nivel4)})
+  	
+  	//keyboard.f().onPressDo({game.onTick(1,"bajarRapido",{tablero.moverAbajo()})})
+  	//keyboard.f().onPressDo({game.removeTickEvent("bajarRapido")})
   	 
 	game.start()
 			
