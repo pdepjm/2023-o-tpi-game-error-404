@@ -64,7 +64,7 @@ object tablero {
 	}
 	
 	method moverAbajo() {
-		if(!pieza.ubicaciones().any({ubi => ubi.y() == 1})){
+		if(!pieza.ubicaciones().any({ubi => ubi.y() == 1}) && self.puedeBajar()){
 			pieza.moverAbajo()
 			}else{
 				self.colocarPieza()
@@ -78,12 +78,22 @@ object tablero {
 		 
 	method moverDerecha() {
 		if(!pieza.ubicaciones().any({ubi => ubi.x() == 10}))
-		 pieza.moverDerecha()
+			if(self.puedeMoverDer()){
+				pieza.moverDerecha()
+			}else{
+				self.colocarPieza()
+			}
+		 
 		 }
 		 
 	method moverIzquierda() {
 		if(!pieza.ubicaciones().any({ubi => ubi.x() == 1}))
-		 pieza.moverIzquierda()
+		if(self.puedeMoverIzq()){
+				pieza.moverIzquierda()
+			}else{
+				self.colocarPieza()
+			}
+		 
 		 }
 		 
 	method rotarIzquierda() {
@@ -95,11 +105,8 @@ object tablero {
 		 }
 	
 	method controlarLinea(listaDeY) {
-		console.println("lista  : " + listaDeY)
 		listaDeY.forEach({y =>  
 			if(bloquesTotales.count({bloque=> bloque.position().y() == y}) == 10){
-				//se borra la linea
-				console.println("complete la linea: " + y)
 				self.borrarLinea(y)
 				self.controlarLinea(listaDeY)
 			}
@@ -112,7 +119,6 @@ object tablero {
 			bloquesTotales.forEach({bloque=>bloque.borrar()})
 			bloquesTotales.clear()
 			puntaje.puntajeActual(0)
-			//sonidoFinJuego.reproducir()
 			self.cambiarNivel(nivel1)
 		}
 	}
@@ -125,26 +131,23 @@ object tablero {
 		puntaje.puntajeActual(puntaje.puntajeActual() + 10)
 	}
 	method bajarDesde(linea) {
-		bloquesTotales.filter({bloque => bloque.position().y() >= linea}).forEach({bloque => bloque.bajarHastaChocar()})
+		bloquesTotales.filter({bloque => bloque.position().y() >= linea}).forEach({bloque => bloque.moverAbajo()})
 	}
 	
 	method colocarPieza(){
-		/*if(pieza.ubicaciones().any({ubi => ubicacionesOcupadas.contains(ubi)})){
-			//no se puede colocar la pieza
-
-		}else{*/
-			//es valido colocar la pieza
-			bloquesTotales.addAll(pieza.bloques())
-			self.controlarFinJuego()
-			console.println(pieza.ubicaciones())
-			self.controlarLinea(pieza.ubicaciones().map({pos => pos.y()}).asSet())
-			self.generarPieza()
-			
-			
-		//}
-		
-		
+		bloquesTotales.addAll(pieza.bloques())
+		self.controlarFinJuego()
+		self.controlarLinea(pieza.ubicaciones().map({pos => pos.y()}).asSet())
+		self.generarPieza()
 	}
+	
+	
+	method ubicacionesOcupadas() = bloquesTotales.map({bloque => bloque.position()})
+	
+	method puedeBajar() = !pieza.ubicaciones().any({ubi => self.ubicacionesOcupadas().contains(new Position(x= ubi.x(),y=ubi.y()-1))})
+	method puedeMoverIzq() = !pieza.ubicaciones().any({ubi => self.ubicacionesOcupadas().contains(new Position(x= ubi.x()-1,y=ubi.y()))})
+	method puedeMoverDer() = !pieza.ubicaciones().any({ubi => self.ubicacionesOcupadas().contains(new Position(x= ubi.x()+1,y=ubi.y()))})
+	
 	method generarPieza() {
 		const rnd = new Range(start = 2, end = 8).anyOne()
 		const piezasPosibles = [new L(x=rnd,y=20),new I(x=rnd,y=20),new O(x=rnd,y=20),new J(x=rnd,y=20),new S(x=rnd,y=20),new Z(x=rnd,y=20),new T(x=rnd,y=20)]
