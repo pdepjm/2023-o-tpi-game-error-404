@@ -37,12 +37,12 @@ program juego {
 	keyboard.e().onPressDo({tablero.rotarDerecha()})
 
 
-  	keyboard.enter().onPressDo({tablero.colocarPieza()})
+  	//keyboard.enter().onPressDo({tablero.colocarPieza()})
   	
-  	keyboard.num1().onPressDo({tablero.cambiarNivel(nivel1)})
-  	keyboard.num2().onPressDo({tablero.cambiarNivel(nivel2)})
-  	keyboard.num3().onPressDo({tablero.cambiarNivel(nivel3)})
-  	keyboard.num4().onPressDo({tablero.cambiarNivel(nivel4)})
+  	//keyboard.num1().onPressDo({tablero.cambiarNivel(nivel1)})
+  	//keyboard.num2().onPressDo({tablero.cambiarNivel(nivel2)})
+  	//keyboard.num3().onPressDo({tablero.cambiarNivel(nivel3)})
+  	//keyboard.num4().onPressDo({tablero.cambiarNivel(nivel4)})
   	
 
 	game.start()

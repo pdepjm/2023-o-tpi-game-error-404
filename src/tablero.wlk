@@ -63,7 +63,7 @@ object tablero{
 	}
 	
 	method moverAbajo() {
-		if(!pieza.ubicaciones().any({ubi => ubi.y() == 1}) && self.puedeBajar()){
+		if(!pieza.ubicaciones().any({ubi => ubi.y() == 1}) && self.puedeRealizarMov(0,-1)){
 			pieza.moverAbajo()
 			}else{
 				self.colocarPieza()
@@ -76,23 +76,17 @@ object tablero{
 		 }
 		 
 	method moverDerecha() {
-		if(!pieza.ubicaciones().any({ubi => ubi.x() == 10}))
-			if(self.puedeMoverDer()){
-				pieza.moverDerecha()
-			}else{
-				self.colocarPieza()
-			}
-		 }
+		if(!pieza.ubicaciones().any({ubi => ubi.x() == 10}) && self.puedeRealizarMov(1,0)){
+			pieza.moverDerecha()
+		}
+	}
 		 
 	method moverIzquierda() {
-		if(!pieza.ubicaciones().any({ubi => ubi.x() == 1}))
-		if(self.puedeMoverIzq()){
-				pieza.moverIzquierda()
-			}else{
-				self.colocarPieza()
-			}
+		if(!pieza.ubicaciones().any({ubi => ubi.x() == 1}) && self.puedeRealizarMov(-1,0)){
+			pieza.moverIzquierda()
+		}
 		 
-		 }
+ 	}
 		 
 	method rotarIzquierda() {
 		 pieza.rotarIzquierda()
@@ -155,9 +149,9 @@ object tablero{
 	
 	method ubicacionesOcupadas() = bloquesTotales.map({bloque => bloque.position()})
 	
-	method puedeBajar() = !pieza.ubicaciones().any({ubi => self.ubicacionesOcupadas().contains(new Position(x= ubi.x(),y=ubi.y()-1))})
-	method puedeMoverIzq() = !pieza.ubicaciones().any({ubi => self.ubicacionesOcupadas().contains(new Position(x= ubi.x()-1,y=ubi.y()))})
-	method puedeMoverDer() = !pieza.ubicaciones().any({ubi => self.ubicacionesOcupadas().contains(new Position(x= ubi.x()+1,y=ubi.y()))})
+	
+	//para bajar nx=0,ny=-1 para derecha nx=1, para izquierda nx=-1
+	method puedeRealizarMov(nx,ny) = !pieza.ubicaciones().any({ubi => self.ubicacionesOcupadas().contains(new Position(x= ubi.x()+nx,y=ubi.y()+ny))})
 	
 	method generarPieza() {
 		const rnd = new Range(start = 2, end = 8).anyOne()

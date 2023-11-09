@@ -8,7 +8,7 @@ object titulo {
 object record{
 	var property puntajeFinal = 0
 	method position() = game.at(5,7)
-	method text() = "PERDISTE! \n Puntaje Final: "+puntajeFinal
+	method text() = " (Presiona R para reiniciar) \n\n PERDISTE! \n Puntaje Final: "+puntajeFinal
 	method textColor() = "FFFFFF"
 }
 
