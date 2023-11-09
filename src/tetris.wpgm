@@ -16,18 +16,22 @@ program juego {
   	game.addVisual(titulo)
   	game.addVisual(texto)
   	
-  	
-  	
-  	
+
   	/* Presionamos espacio y desaparece el titulo y la leyenda de debajo */
   	keyboard.space().onPressDo({game.removeVisual(texto)})
   	keyboard.space().onPressDo({game.removeVisual(titulo)})
   	keyboard.space().onPressDo({tablero.iniciar()})
   	
+
+  	keyboard.r().onPressDo({game.removeVisual(gameOver)})
+  	keyboard.r().onPressDo({game.removeVisual(record)})
+  	keyboard.r().onPressDo({tablero.iniciar()})
+  	
+  	
   	keyboard.down().onPressDo({tablero.moverAbajo()})
   	keyboard.left().onPressDo({tablero.moverIzquierda()})
 	keyboard.right().onPressDo({tablero.moverDerecha()})
-	//keyboard.up().onPressDo({tablero.moverArriba()})
+	
 	
 	keyboard.q().onPressDo({tablero.rotarIzquierda()})
 	keyboard.e().onPressDo({tablero.rotarDerecha()})
@@ -40,9 +44,7 @@ program juego {
   	keyboard.num3().onPressDo({tablero.cambiarNivel(nivel3)})
   	keyboard.num4().onPressDo({tablero.cambiarNivel(nivel4)})
   	
-  	//keyboard.f().onPressDo({game.onTick(1,"bajarRapido",{tablero.moverAbajo()})})
-  	//keyboard.f().onPressDo({game.removeTickEvent("bajarRapido")})
-  	 
+
 	game.start()
 			
 }

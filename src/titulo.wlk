@@ -5,6 +5,17 @@ object titulo {
 	method image() = "titulo.png"
 	
 }
+object record{
+	var property puntajeFinal = 0
+	method position() = game.at(5,7)
+	method text() = "PERDISTE! \n Puntaje Final: "+puntajeFinal
+	method textColor() = "FFFFFF"
+}
+
+object gameOver{
+	method position() = game.at(1,10)
+	method image() = "gameOver.png"
+}
 
 object texto {
 	method position() = game.at(5,5)
@@ -21,7 +32,7 @@ object puntaje {
 	method textColor() = "FFFFFF"
 }
 
-object nivel{
+object nroNivel{
 	var property nivelTexto = 1
 	method position() = game.at(13,14)
 	method text() = "Nivel: "+nivelTexto

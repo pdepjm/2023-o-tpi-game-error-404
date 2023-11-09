@@ -2,11 +2,18 @@ import wollok.game.*
 
 object musica{
 	
-	var ruta="Sonidos/musica.mp3"
+	const ruta="Sonidos/musica.mp3"
 	const sonido=game.sound(ruta)
 	
 	method reproducir(){
-		sonido.play()
+		if(sonido.paused()){
+			sonido.resume()
+		}else{
+		sonido.play()}
+	}
+	
+	method pause(){
+		sonido.pause()
 	}
 	
 	method volumen(volumen){

@@ -23,7 +23,7 @@ object nivel4{
 	method tiempo() = 200
 }
 
-object tablero {
+object tablero{
 	
 	
 	const bloquesTotales = []
@@ -39,21 +39,20 @@ object tablero {
 		musica.volumen(0.1)
 		musica.loop(true)
 		game.addVisual(puntaje)
-		game.addVisual(nivel)
+		game.addVisual(nroNivel)
 	}
 	
 	method subirNivel(){
 		if(nivelActual <= 4){
 			const niveles = [nivel1,nivel2,nivel3,nivel4]
 		    self.cambiarNivel(niveles.get(nivelActual))
-		}
-				
+		}	
 	}
 		
 	method cambiarNivel(nivelObjeto){
 		game.removeTickEvent("movimiento")
 		game.onTick(nivelObjeto.tiempo(), "movimiento", { self.moverAbajo() })
-		nivel.nivelTexto(nivelObjeto.nivel())
+		nroNivel.nivelTexto(nivelObjeto.nivel())
 		nivelActual = nivelObjeto.nivel()
 	}
 	
@@ -83,7 +82,6 @@ object tablero {
 			}else{
 				self.colocarPieza()
 			}
-		 
 		 }
 		 
 	method moverIzquierda() {
@@ -116,13 +114,27 @@ object tablero {
 	method controlarFinJuego() {
 		if(bloquesTotales.any({bloque =>  bloque.position().y()>=20})){
 			console.println("Perdiste")
-			bloquesTotales.forEach({bloque=>bloque.borrar()})
-			bloquesTotales.clear()
-			puntaje.puntajeActual(0)
-			self.cambiarNivel(nivel1)
+			self.volverMenu()		
+		}else{
+			self.generarPieza()
 		}
 	}
 	
+	method volverMenu() {
+		bloquesTotales.forEach({bloque=>bloque.borrar()})
+		bloquesTotales.clear()
+		record.puntajeFinal(puntaje.puntajeActual())
+		game.addVisual(record)
+		puntaje.puntajeActual(0)
+		self.cambiarNivel(nivel1) 
+		game.removeTickEvent("movimiento")
+		game.addVisual(gameOver)
+  		game.removeVisual(puntaje)
+  		game.removeVisual(nroNivel)
+  		musica.pause()
+  		pieza= new L(x=40,y=40)
+	}
+
 	method borrarLinea(linea) {
 		const bloquesAEliminar = bloquesTotales.filter({bloque => bloque.position().y() == linea})
 		bloquesAEliminar.forEach({bloque => bloque.borrar()})
@@ -136,9 +148,8 @@ object tablero {
 	
 	method colocarPieza(){
 		bloquesTotales.addAll(pieza.bloques())
-		self.controlarFinJuego()
 		self.controlarLinea(pieza.ubicaciones().map({pos => pos.y()}).asSet())
-		self.generarPieza()
+		self.controlarFinJuego()
 	}
 	
 	
@@ -156,5 +167,5 @@ object tablero {
 		pieza.agregarVisuales()
 		self.controlarCambioDeNivel()
 	}
-			
+	
 }

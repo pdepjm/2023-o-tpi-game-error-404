@@ -74,7 +74,6 @@ class Pieza{
 	
 	method moverAbajo(){
 		bloques.forEach({bloque => bloque.moverAbajo()})
-		
 	}
 	
 	method moverArriba(){
@@ -91,7 +90,6 @@ class Pieza{
 	
 	method ubicaciones() {
 		return bloques.map({bloque => bloque.position()})
-		
 	}
 	
 	
@@ -100,7 +98,6 @@ class Pieza{
 	method noSaleDeTablero(){
 		//ver si cuando realizo el movimiento pedido excedo 21 en y o 11 en x
 		return true
-		
 	}
 	
 }
